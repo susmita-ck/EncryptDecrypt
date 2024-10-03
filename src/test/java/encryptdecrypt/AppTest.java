@@ -1,20 +1,41 @@
 package encryptdecrypt;
 
-import static org.junit.Assert.assertTrue;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * Unit test for simple App.
  */
-public class AppTest 
-{
-    /**
-     * Rigorous Test :-)
-     */
+public class AppTest {
+
     @Test
-    public void shouldAnswerWithTrue()
-    {
-        assertTrue( true );
+    public void shouldAnswerWithTrue() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException,
+            InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
+        SecretKey symmetricKey = Encryption.generateKey();
+
+        // Takes input from the keyboard
+        String plainText = "Sample Text";
+
+        // Encrypt the message using the symmetric key
+        byte[] cipherText = Encryption.encrypt(plainText, symmetricKey);
+        Logger logger = Logger.getLogger(Encryption.class.getSimpleName());
+        logger.log(Level.INFO, "The encrypted message is: " + cipherText);
+        Assert.assertNotEquals(null, cipherText);
+
+        // Decrypt the encrypted message
+        String decryptedText = Encryption.decrypt(cipherText, symmetricKey);
+        logger.log(Level.INFO, "Your original message is: " + decryptedText);
+        Assert.assertNotEquals(null, decryptedText);
     }
 }

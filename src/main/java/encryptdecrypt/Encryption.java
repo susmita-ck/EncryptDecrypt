@@ -5,9 +5,6 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -20,6 +17,10 @@ import javax.crypto.spec.IvParameterSpec;
 public class Encryption {
 
     private static SecureRandom random = new SecureRandom();
+
+    private Encryption() {
+
+    }
 
     public static SecretKey generateKey() throws NoSuchAlgorithmException {
         KeyGenerator keygenerator = KeyGenerator.getInstance("AES");
@@ -83,24 +84,6 @@ public class Encryption {
         // Decrypt and return the plaintext
         byte[] decryptedData = cipher.doFinal(encryptedData);
         return new String(decryptedData, StandardCharsets.UTF_8);
-    }
-
-    public static void main(String[] args) throws Exception {
-        SecretKey symmetricKey = generateKey();
-
-        // Takes input from the keyboard
-        Scanner message = new Scanner(System.in);
-        String plainText = message.nextLine();
-        message.close();
-
-        // Encrypt the message using the symmetric key
-        byte[] cipherText = encrypt(plainText, symmetricKey);
-        Logger logger = Logger.getLogger(Encryption.class.getSimpleName());
-        logger.log(Level.INFO, "The encrypted message is: " + cipherText);
-
-        // Decrypt the encrypted message
-        String decryptedText = decrypt(cipherText, symmetricKey);
-        logger.log(Level.INFO, "Your original message is: " + decryptedText);
     }
 
 }
