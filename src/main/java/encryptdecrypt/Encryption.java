@@ -28,15 +28,6 @@ public class Encryption {
         return keygenerator.generateKey();
     }
 
-    /*
-     * public static IvParameterSpec generateIv() {
-     * byte[] initializationVector = new byte[16];
-     * SecureRandom secureRandom = new SecureRandom();
-     * secureRandom.nextBytes(initializationVector);
-     * return new IvParameterSpec(initializationVector);
-     * }
-     */
-
     public static byte[] encrypt(String input, SecretKey key)
             throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException,
             InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException {
