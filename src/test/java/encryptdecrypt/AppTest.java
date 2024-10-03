@@ -30,12 +30,12 @@ public class AppTest {
         // Encrypt the message using the symmetric key
         byte[] cipherText = Encryption.encrypt(plainText, symmetricKey);
         Logger logger = Logger.getLogger(Encryption.class.getSimpleName());
-        logger.log(Level.INFO, "The encrypted message is: " + cipherText);
+        logger.log(Level.INFO, String.format("The encrypted message is: %s", cipherText));
         Assert.assertNotEquals(null, cipherText);
 
         // Decrypt the encrypted message
         String decryptedText = Encryption.decrypt(cipherText, symmetricKey);
-        logger.log(Level.INFO, "Your original message is: " + decryptedText);
+        logger.log(Level.INFO, String.format("The original message is: %s", decryptedText));
         Assert.assertNotEquals(null, decryptedText);
     }
 }
